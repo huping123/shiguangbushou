@@ -24,8 +24,6 @@ class Adminer extends Auser
         $re = $this->per->paginate(3);
         $pid = $request->param('pid');
        // dump($pid);
-        if (!empty($_POST['del'])){
-
      	$res = Db::name('per')->where('pid',$pid)->delete();
 		//dump($res);
 		if($res){
@@ -33,16 +31,12 @@ class Adminer extends Auser
 		}else{
 		return $this->error('删除失败');
 		}
-       
-	   
-	     $this->assign('res',$res);
-       
-	 }   
+    
 	    $page = $re->render();
-	    $this->assign('page',$page);
+	     $this->assign('res',$res);
+        $this->assign('page',$page);
         $this->assign('re',$re);
 		return $this->fetch();
-
 }
  
 //角色管理

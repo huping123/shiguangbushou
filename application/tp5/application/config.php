@@ -153,7 +153,6 @@ return [
         '__ADMIN_PATH__' => '/static/admin/',
         '__ACSS1_PATH__' => '/static/admin/css1/',
         '__ACSS_PATH__' => '/static/admin/css/',
-        '__AWCSS_PATH__' => '/static/admin/',
         '__APIC_PATH__' => '/uploads/'
     ],
     // 默认跳转页面对应的模板文件

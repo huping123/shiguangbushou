@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="__HCSS_PATH__/style3.css" />   
+    <script type="text/javascript" src="__HJS_PATH__/jquery-1.11.1.min_044d0927.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/jquery.bxslider_e88acd1b.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/menu.js"></script>    
+    <script type="text/javascript" src="__HJS_PATH__/select.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/lrscroll.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/iban.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/fban.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/f_ban.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/mban.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/bban.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/hban.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/tban.js"></script>
+    <script type="text/javascript" src="__HJS_PATH__/lrscroll_1.js"></script>
+
+<title>二手交易</title>
+</head>
+<body> 
+<!--Begin Header Begin-->
+<div class="soubg">
+    <div class="sou">
+        <span class="fr">
+            
+            <span class="fl"><a href="{:url('index/user/login')}" style="color:#ff4e00">登录</a>&nbsp;|</span>
+            <span class="fl"><a href="/index/user/out">退出</a>&nbsp;|<a href="/index/myself/Member_Order">我的订单</a>&nbsp;|</span>
+            <span class="ss">
+                 <div class="ss_list">
+                    <a href="#">收藏夹</a>
+                    <div class="ss_list_bg">
+                        <div class="s_city_t"></div>
+                        <div class="ss_list_c">
+                            <ul>                 
+                                <li><a href="/index/myself/Member_Collect">我的收藏夹</a></li>
+                               
+                            </ul>
+                        </div>
+                    </div>     
+                </div>
+                <div class="ss_list">
+                    <a href="#">客户服务</a>
+                    <div class="ss_list_bg">
+                        <div class="s_city_t"></div>
+                        <div class="ss_list_c">
+                            <ul>
+                                <li><a href="#">客户服务</a></li>
+                            </ul>
+                        </div>
+                    </div>    
+                </div>
+                <div class="ss_list">
+                    <a href="#">网站导航</a>
+                    <div class="ss_list_bg">
+                        <div class="s_city_t"></div>
+                        <div class="ss_list_c">
+                            <ul>
+                                <li><a href="#">网站导航</a></li>
+                            </ul>
+                        </div>
+                    </div>    
+                </div>
+            </span>
+        </span>
+    </div>
+</div>
+<div class="top">
+    <div class="logo"><a href="/"><img src="__image_PATH__/logo.png" /></a></div>
+    <div class="search">
+        <form action="/index/lists/sousou" method="post">
+            <input type="text" name="text" class="s_ipt" />
+            <input type="submit" value="搜索" class="s_btn" />
+        </form>                      
+    </div>
+    <div class="i_car">
+        <div class="car_t">购物车 [ <span></span> ]</div>
+
+        <div class="car_bg">
+            <!--Begin 购物车未登录 Begin-->
+            <div class="un_login">还未登录！<a href="/index/user/login" style="color:#ff4e00;">马上登录</a> 查看购物车！</div>
+        </div>
+         <div class="car_bg">
+            <!--Begin 购物车已登录 Begin-->
+            <div class="un_login" >用户<a href="/index/pay/pay" style="color:#ff4e00;"></a> 查看购物车！</div>
+        </div>
+    </div>
+</div>
+<!--End Header End--> 
+<!--Begin Menu Begin-->
+<div class="menu_bg">
+    <div class="menu">
+        <!--Begin 商品分类详情 Begin-->    
+        <div class="nav">
+            <div class="nav_t">优享精品</div>
+            <div class="leftNav">
+                <ul> 
+                {foreach $result as $vo}    
+                    <li>
+                        <div class="fj">
+                            <span class="fl" style="margin-left:20px; font-size:20px; padding-bottom:10px; text-align:center;">{$vo.name}</span>
+                        </div>
+                        <div class="zj">
+                            {foreach $two as $value}
+                                {if $vo.cid == $value.cpid}
+                            <div class="zj_l">
+                                <div class="zj_l_c">
+                                    <h2>{$value.name}</h2>
+                                        {foreach $three as $vas}
+                                             {if $value.cid == $vas.cpid}
+                                    <a href="/index/good/product?pid={$vas.cid}">{$vas.name}</a>|
+                                             {/if}
+                                        {/foreach}
+                                </div>
+                            </div>
+                          
+                          
+                            <div class="zj_r">
+                            </div>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    </li>
+                {/foreach}
+                </ul>            
+            </div>
+        </div>  
+        <!--End 商品分类详情 End-->                                                     
+        <ul class="menu_r">                                                                                                                                               
+            <li><a href="/">首页</a></li>
+            {foreach $result as $values}   
+            <li><a href="/index/lists/brand?cid={$values.cid}">{$values.name}</a></li>
+            {/foreach}
+            <li><a href="">回收</a></li>
+
+        </ul>
+    </div>
+</div>
+<!--End Menu End--> 
+<div class="i_bg bg_color">
+    <div class="i_ban_bg">
+        <!--Begin Banner Begin-->
+        <div class="banner">        
+            <div class="top_slide_wrap">
+                <ul class="slide_box bxslider">
+                {foreach $lun as $values}   
+                    <li><a><img src="__HIMG_PATH__/{$values.images}" width="1026"  /></a></li>
+                 {/foreach}
+                </ul>   
+                <div class="op_btns clearfix">
+                    <a href="javascript:void(0)" class="op_btn op_prev"><span></span></a>
+                    <a href="javascript:void(0)" class="op_btn op_next"><span></span></a>
+                </div>        
+            </div>
+        </div>
+        <script type="text/javascript">
+        //var jq = jQuery.noConflict();
+        (function(){
+            $(".bxslider").bxSlider({
+                auto:true,
+                prevSelector:jq(".top_slide_wrap .op_prev")[0],nextSelector:jq(".top_slide_wrap .op_next")[0]
+            });
+        })();
+        </script>
+    </div>
+    <!--Begin 热门商品 Begin-->
+     <div class="i_t mar_10">
+      <span class="floor_num"></span>
+        <span class="fl">苹果手机</span>
+        <span class="i_mores fr"><a href="#"></a></span>
+    </div>
+    <div class="content mar_10">
+       
+      <!--   <div class="h_l_img" style="background-color:white;">
+            <div class="img"><a href="/index/good/product?pid={}"><img src="__HIMG_PATH__/" width="188" height="158" /></a></div>
+            <div class="pri_bg">
+                <span class="price fl" style="margin-top:-20px;"> </span>
+                <span class="fr"><a href="/index/good/product?pid={}"></a></span>
+            </div>
+    
+        </div> -->
+  
+        <div class="hot_pro">           
+            <div id="featureContainer">
+                <div id="feature">
+                    <div id="block">
+                        <div id="botton-scroll">
+                            <ul class="featureUL">
+                                {if $foreach}
+                                     {foreach $apple as $vo}
+                                <li class="featureBox">
+                                     
+                                    <div class="box">
+                                        <div class="h_icon"><img src="__HIMG_PATH__/a.png" width="50" height="50" /></div>
+                                        <div class="imgbg">
+                                            <a href="/index/good/product?pid={$vo.pid}"><img src="__HIMG_PATH__/{$vo.url}" width="160" height="136" /></a>
+                                        </div>                                        
+                                        <div class="name">
+                                            <a href="/index/good/product?pid={$vo.pid}">
+                                            <h2>{$vo.name} </h2>
+                                            
+                                            </a>
+                                        </div>
+                                        <div class="price">
+                                            <font>￥<span>{$vo.price}</span></font> 
+                                        </div>
+                                    </div>
+                                   
+                                </li>
+                                   {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                    <a class="h_prev" href="javascript:void();">Previous</a>
+                    <a class="h_next" href="javascript:void();">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Begin 限时特卖 Begin-->
+    <div class="i_t mar_10">
+         <span class="floor_num"></span>
+        <span class="fl">平板</span>
+        <span class="i_mores fr"><a href="#"></a></span>
+    </div>
+    <div class="content">
+
+        <div class="i_sell">
+            <div id="imgPlay">
+                <ul class="imgs">
+              
+                    <li><a href="/index/good/product?pid="><img src="__image_PATH__/{}" width="211" height="357" /></a></li>
+        
+                </ul>
+              <!--   <div class="previ">上一张</div>
+                <div class="nexti">下一张</div> -->
+            </div>        
+        </div>
+     
+        <div class="sell_right">
+             
+            <div class="sell_1">
+                <div class="s_img"><a href="/index/good/product?pid={}"><img src="__image_PATH__/{}" width="185" height="155" /></a></div>
+                <div class="s_price">￥<span></span></div>
+               <!--  <div class="s_name">
+                </div> -->
+            </div>
+          
+        </div>
+    </div>
+    <!--End 限时特卖 End-->
+    <div class="content mar_20">
+        <!-- <img src="__image_PATH__/mban_1.jpg" width="1200" height="110" /> -->
+    </div>
+    <!--Begin 进口 生鲜 Begin-->
+    <div class="i_t mar_10">
+        <span class="floor_num"></span>
+        <span class="fl">笔记本</span>   
+          <span class="i_mores fr"><a href="#"></a></span>             
+    </div>
+    <div class="content">
+              <div class="fresh_left">
+                <div id="fre_ban">
+            
+                    <ul class="imgs">
+                    
+                        <li><a href="/index/good/product?pid={}"><img src="__image_PATH__/{} " width="211" height="360" /></a></li>
+                   
+                    </ul>
+          
+                  <!--   <div class="previ">上一张</div>
+                    <div class="nexti">下一张</div> -->
+                </div>        
+             </div>
+               <div class="sell_right">
+          
+            <div class="sell_1">
+                <div class="s_img"><a href="/index/good/product?pid={}"><img src="__image_PATH__/{}" width="185" height="155" /></a></div>
+                <div class="s_price">￥<span></span></div>
+               <!--  <div class="s_name">
+                </div> -->
+            </div>
+            
+        </div>
+    </div>    
+
+    <!--End 食品饮料 End-->
+    <!--Begin 个人美妆 Begin-->
+    <div class="i_t mar_10">
+        <span class="floor_num">5F</span>
+        <span class="fl">手机配件</span>    
+          <span class="i_mores fr"><a href="#"></a></span>                            
+    </div>
+
+         <div class="content">
+              <div class="fresh_left">
+                <div id="fre_ban">
+           
+                    <ul class="imgs">
+                        <li><a href="/index/good/product?pid={}"><img src="__image_PATH__/{}" width="211" height="360" /></a></li>
+                    </ul>
+            
+                  <!--   <div class="previ">上一张</div>
+                    <div class="nexti">下一张</div> -->
+                </div>        
+             </div>
+               <div class="sell_right">
+         
+            <div class="sell_1">
+                <div class="s_img"><a href="/index/good/product?pid={}"><img src="__image_PATH__/{}" width="185" height="155" /></a></div>
+                <div class="s_price">￥<span></span></div>
+               <!--  <div class="s_name">
+                </div> -->
+            </div>
+            
+        </div>
+    </div>  
+    <!--End 进口 生鲜 End-->  
+    <!--End 个人美妆 End-->
+    <div class="content mar_20">
+        <!-- <img src="__image_PATH__/mban_1.jpg" width="1200" height="110" /> -->
+    </div>
+    <!--Begin 母婴玩具 Begin-->
+  
+     <a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#uuid=&amp;style=3&amp;fs=4&amp;textcolor=#fff&amp;bgcolor=#F90&amp;text=分享到"></script>      
+    <!--Begin 猜你喜欢 Begin-->
+    <div class="i_t mar_10">
+        <span class="fl">猜你喜欢</span>
+    </div>    
+    <div class="like">          
+        <div id="featureContainer1">
+            <div id="feature1">
+                <div id="block1">
+                    <div id="botton-scroll1">
+                        <ul class="featureUL">
+        
+                            <li class="featureBox">
+                                <div class="box">
+                                    <div class="imgbg">
+                                       <a href="/index/good/product?pid={}"><img src="__image_PATH__/{}" width="160" height="136" /></a>
+                                    </div>                                        
+                                    <div class="name">
+                                        <a href="#">
+                                   
+                                        </a>
+                                    </div>
+                                    <div class="price">
+                                        <font>￥<span></span></font> &nbsp;
+                                    </div>
+                                </div>
+                            </li>
+          
+                        </ul>
+                    </div>
+                </div>
+                <a class="l_prev" href="javascript:void();">Previous</a>
+                <a class="l_next" href="javascript:void();">Next</a>
+            </div>
+        </div>
+
+    </div>
+  <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=1491940189&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1491940189:53" style="width:83px;height:135px;margin-left: 2px;margin-top: -80px;" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+
+    <!--End 猜你喜欢 End-->
+    
+    <!--Begin Footer Begin -->
+<!--     <div class="b_btm_bg b_btm_c">
+        <div class="b_btm">
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="__image_PATH__/b1.png" width="62" height="62" /></td>
+                <td><h2>正品保障</h2>正品行货  放心购买</td>
+              </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="__image_PATH__/b2.png" width="62" height="62" /></td>
+                <td><h2>满38包邮</h2>满38包邮 免运费</td>
+              </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="__image_PATH__/b3.png" width="62" height="62" /></td>
+                <td><h2>天天低价</h2>天天低价 畅选无忧</td>
+              </tr>
+            </table>
+            <table border="0" style="width:210px; height:62px; float:left; margin-left:75px; margin-top:30px;" cellspacing="0" cellpadding="0">
+              <tr>
+                <td width="72"><img src="__image_PATH__/b4.png" width="62" height="62" /></td>
+                <td><h2>准时送达</h2>收货时间由你做主</td>
+              </tr>
+            </table>
+        </div>
+    </div> -->
+    <div class="b_nav">
+        <dl>                                                                                            
+            <dt><a href="https://m.kuaidi100.com/" target="_blank">新手上路</a></dt>
+            <dd><a href="#">售后流程</a></dd>
+            <dd><a href="#">购物流程</a></dd>
+            <dd><a href="#">订购方式</a></dd>
+            <dd><a href="#">隐私声明</a></dd>
+            <dd><a href="#">推荐分享说明</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">配送与支付</a></dt>
+            <dd><a href="#">货到付款区域</a></dd>
+            <dd><a href="#">配送支付查询</a></dd>
+            <dd><a href="#">支付方式说明</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">会员中心</a></dt>
+            <dd><a href="#">资金管理</a></dd>
+            <dd><a href="#">我的收藏</a></dd>
+            <dd><a href="#">我的订单</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">服务保证</a></dt>
+            <dd><a href="#">退换货原则</a></dd>
+            <dd><a href="#">售后服务保证</a></dd>
+            <dd><a href="#">产品质量保证</a></dd>
+        </dl>
+        <dl>
+            <dt><a href="#">联系我们</a></dt>
+            <dd><a href="#">网站故障报告</a></dd>
+            <dd><a href="#">购物咨询</a></dd>
+            <dd><a href="#">投诉与建议</a></dd>
+        </dl>
+        <div class="b_tel_bg">
+            <a href="#" class="b_sh1">新浪微博</a>            
+            <a href="#" class="b_sh2">腾讯微博</a>
+            <p>
+            服务热线：<br />
+            <span>400-888-8888</span>
+            </p>
+        </div>
+        <div class="b_er">
+            <div class="b_er_c"><img src="__image_PATH__/er.gif" width="118" height="118" /></div>
+            <img src="__image_PATH__/ss.png" />
+        </div>
+    </div>    
+    <div class="btmbg">
+        <div class="btm">
+            备案/许可证编号：蜀ICP备12009302号-1-www.dingguagua.com   Copyright © 2018-3018 小米商城网 All Rights Reserved. 复制必究 , Technical Support: Dgg Group <br />
+            <img src="__image_PATH__/b_1.gif" width="98" height="33" /><img src="__image_PATH__/b_2.gif" width="98" height="33" /><img src="__image_PATH__/b_3.gif" width="98" height="33" /><img src="__image_PATH__/b_4.gif" width="98" height="33" /><img src="__image_PATH__/b_5.gif" width="98" height="33" /><img src="__image_PATH__/b_6.gif" width="98" height="33" />
+        </div>      
+    </div>
+    <!--End Footer End -->    
+</div>
+
+</body>
+
+
+<!--[if IE 6]>
+<script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+</html>
+<script src="https://qiyukf.com/script/06effbda577852e48a365a002e95f1e5.js"></script>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>爱登录</title>
+    <meta name="keywords" content="爱回收"/>
+    <meta name="description" content="爱回收"/> 
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="renderer" content="webkit" />  
+    <link href="__HCSS_PATH__/common_new.min.css" rel="Stylesheet" type="text/css" />
+		<script src="__HJS_PATH__/jquery.min.js"></script>
+		<script src="__HJS_PATH__/main1.js"></script>
+    <link href="/favicon.ico" mce_href="/favicon.ico" rel="bookmark" type="image/x-icon" />
+    <link href="/favicon.ico" mce_href="/favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="/favicon.ico" mce_href="/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="__HCSS_PATH__/user-login.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">   
+    </script>
+    </head>
+<body class="   ">
+<div class="wrapper ">
+    <div class="section-main">
+        <div class="main-logo">
+            <div class="logo"></div>
+        </div>
+        <div id="component-login-account" class="section-logintab">
+            <div id="login-tabset" class="component-tabset">
+                <div id="login-method" class="component-tabpanel">
+                    <div class="tab" data-target="#form-mobile-login">账号密码登录</div>
+                    <div class="tab sms-login-method selected" data-target="#form-sms-login">手机验证登录</div>
+                </div>
+                <div id="form-login">
+                    <div id="form-mobile-login" class="component-form component-tabcontent">
+                        <div id="mobile-login-wrapper"  class="form-wrapper">
+                            <div class="form-group icon-mobile widget-verify-input">
+                                <input type="text" id="account-name" class="widget-sync-mobile" placeholder="手机号" maxlength="11" />
+                                <div class="error-tips">
+                                    <div class="error">请输入上次登录的手机号</div>
+                                </div>
+                            </div>
+                            <div class="form-group icon-passwd widget-verify-input">
+                                <input type="password" id="account-passwd" placeholder="密码" maxlength="16" autocomplete="off" />
+                                <div class="error-tips">
+                                    <div class="error">请输入密码</div>
+                                </div>
+                            </div>
+                            <div id="submit-pwd-login" class="submit-group">
+                                <div id="submit-account-login" class="btn-submit">登录</div>
+                                <div class="submit-desc">
+                                    <div class="desc">
+                                        <div id="forget-pwd">忘记密码?</div>
+                                    </div>
+                                </div>
+                                <div class="error-tips">
+                                    <div class="error-icon">-</div>
+                                    <div class="error-text"></div>
+                                </div>
+                            </div>
+                        </div>
+                    <!--     <div id="mobile-login-error-wrapper" class="form-wrapper show">
+                            <div class="login-error">
+                                <div class="icon-locked"></div>
+                                <div class="text">
+                                    错误次数过多，账户已被锁定2小时
+                                    <br />
+                                    请使用手机号验证登录
+                                </div>                                
+                            </div>
+                            <div class="submit-group">
+                                <div class="btn-submit tab-smslogin-btn" display="none">手机验证登录</div>
+                            </div>
+                        </div> -->
+                        
+                    </div>
+
+					<form action="{:url('index/user/log')}" method="post" onsubmit ="return demo();"> 
+
+                    <div id="form-sms-login" class="selected component-form component-tabcontent component-captcha-validate">
+                        <div class="form-group captcha-group icon-mobile sms-captcha-wrap widget-verify-input" id="sms-captcha-wrap">
+                            <input type="text" id="sms-mobile" class="sms-mobile widget-sync-mobile" placeholder="手机号" maxlength="11" name="phone" maxlength="11" />
+                            <div class="error-tips">                            	
+                                <div class="error">请输入正确手机号</div>
+                            </div>
+                            <div id="btn-get-smscode" class="btn btn-get-smscode ">获取验证码</div>
+                            <!-- <input type="button" id="btn-get-smscode" class="btn btn-get-smscode " value=""> -->
+							<!-- <button id="btn-get-smscode" class="btn btn-get-smscode">获取验证码</button> -->
+                        </div>
+
+                        <!-- 图片验证码 -->
+                        <div id="img-captcha-popbtn" class="component-img-captcha-util-btn img-captcha-popbtn "></div>
+                        <div id="img-captcha-wrap" class="popup-wrap closepop img-captcha-wrap hide ">
+                            <div class="popup">
+                                <div class="popup-content">
+                                    <div class="close popup-close">&times;</div>
+                                    <div class="form-group captcha-group widget-verify-input">
+                                        <input type="text" id="input-img-captcha" class="input-img-captcha " placeholder="请输入右侧图片内容" />
+
+                                         <img id="checkCode" width="120" height="38" style="display: inline-block;vertical-align: middle;cursor: pointer;" src="{:captcha_src()}" onclick="this.src=this.src+'?';">
+                                        <div class="error-tips">
+                                            <div class="error">请输入图片验证码</div>
+                                        </div>
+                                       <!--  <img src="picture/img-captcha-placeholder_1.png" class="btn image-captcha" /> -->
+                                    </div>
+                                    <div class="submit-group">
+                                        <div id="tijiao" class="btn btn-submit btn-get-smscode btn-img-smscode">提交</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 短信验证码 -->
+                        <div class="form-group icon-passwd  widget-verify-input">
+                            <input type="text" id="sms-captcha" class="sms-captcha" placeholder="短信验证码" maxlength="6" disabled="disabled" name="smscode" />
+                            <!-- <input type="hidden" name="yzm" id="yzm" /> -->
+ <!--                            <div class="error-tips">
+                                <div class="error">请输入短信验证码</div>
+                            </div> -->
+                        </div>
+                        <div id="submit-sms-login-wrapper" class="submit-group">
+                            <button type="submit" id="submit-sms-login" class="btn-submit" data-success-url="www.aihuishou.com/hom/index" data-submit-url="/Account/LoginSms" data-resetpasswd-url="/Account/SetLoginPwd.html" disabled="disabled" >登录</button>
+                            <div class="submit-desc">
+                                <div class="desc left">
+                                    <div>未注册爱回收账号的手机号，登录时将自动创建爱回收账号</div>
+                                </div>
+                            </div>
+                            <div class="error-tips">
+                                <div class="error-icon">-</div>
+                                <div class="error-text"></div>
+                            </div>
+                        </div>
+                        <input type="hidden" readonly class="sms-type" value="Login" />
+                    </div>
+					</form>
+                    <div id="keep-login-wrap">
+                        <div id="keep-login-icon"></div>
+                        <div class="text">10天内免登录</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <input type="hidden" id="returnurl" value="www.aihuishou.com/hom/index" />
+    <input type="hidden" id="guestmark" value="vip" />
+
+<div id="forget-pwd-popup">
+    <div class="component-popup">
+        <div class="popup-wrap closepop">
+            <div class="popup">
+                <div class="popup-close-btn close">&times;</div>
+                <div class="popup-title">
+                    <div class="title-main">温馨提示</div>
+                    <div class="title-sub"></div>
+                </div>
+                <div class="popup-content">
+                    <div class="info-group">
+                        忘记登录密码，建议您使用手机验证登录方式
+                    </div>
+                    <div class="submit-group">
+                        <div class="btn-submit tab-smslogin-btn">手机验证登录</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="sync-mobile" />
+<input type="text" style="display:" />
+<input type="password" style="display:" />
+</div>
+<script type="text/javascript">
+	$("#sms-mobile").blur(function(){
+		var Phone = $("#sms-mobile").val();
+		if(!(/^1[3|4|5|7|8][0-9]{9}$/.test(Phone)))
+        {
+        	$("#user-new-phone").css('border', '1px solid red');
+        	$("#user-new-phone").val('手机格式不合法');
+            return false;
+        }
+        return true;
+	})
+</script>
+    <script type="text/javascript">
+    	
+   	var one = null;
+	var two = null;	
+	var phoneyzm;
+	var three =null;
+	var four =null;
+	var five=null;
+	var flag =0;
+
+    //手机与验证与登陆切换
+    $('.tab').click(function(){
+		if($('.tab').toggleClass('selected')){
+	 	$('#form-sms-login').toggleClass('selected');
+		$('#form-mobile-login').toggleClass('selected');
+		}
+    })
+    $('.popup-close').click(function(){
+    	$('#img-captcha-wrap').toggle();
+   	})
+
+	$('#sms-mobile').blur(function(){
+			var mobileone = /^1[3|4|5|7|8][0-9]{9}$/;
+			 if(mobileone.test($('#sms-mobile').val()))
+			 {
+			 	
+			 	//$("#sms-captcha").attr('disabled',false).css({"background-color":"#fff"});
+			 	$(".btn-get-smscode").addClass("active");
+			 	$('#sms-mobile').removeClass('error');
+			 	$.post("{:url('index/user/mobile')}",{mobile:$(this).val()},function(data){
+
+			 	},'json');
+				one = true;
+			 }else{	
+							
+					$("#sms-captcha").attr('disabled',true).css({"background-color":"#999"});
+					$('#sms-mobile').addClass('error');
+			 		$(".btn").removeClass("active");
+				 one = false;
+			 } 
+		});
+
+		$('#btn-get-smscode').click(function(){
+			if($('div').hasClass('active')){
+				$('#img-captcha-wrap').toggle();
+				three=true;
+			}			
+		})
+
+
+
+		$('#input-img-captcha').blur(function(){
+	      	$.post("{:url('user/yzm')}",{code:$('#input-img-captcha').val()},function(res)
+	      	{
+      			if(res == ''){
+      				$('#input-img-captcha').removeClass('error');
+      				two=true;
+      			} else{
+      				$('#input-img-captcha').addClass('error');
+      				two = false;
+      			}
+
+	      	})
+		})
+
+		 $('#tijiao').click(function(){					
+		 		if(two==true){
+					   var jishi = document.getElementById('btn-get-smscode');
+					   var wait = 10;
+						var timer = null;
+					    var num = 0;
+						$('#img-captcha-wrap').toggle();
+							phone = $("#sms-mobile").val();
+					        $.post("{:url('index/user/dosafety')}",{phone:phone},function(data){
+									phoneyzm = data.notice;
+									 $('#sms-captcha').blur(function(){
+										 $smsode = $('#sms-captcha').val();	
+										if($smsode == phoneyzm){				
+											$('#sms-captcha').removeClass('error');
+											
+										 	four = true;
+										 	$("#submit-sms-login").removeAttr('disabled');
+										} else {
+											$('#sms-captcha').addClass('error');	
+											//four == false;
+										}
+									});
+								},'json');
+			          		num++;
+							timer = setInterval(function(){
+							$("#btn-get-smscode").attr({"disabled":"disabled"});
+							jishi.innerText = wait + '后可重发';
+							wait--;
+							if (wait == 0) {
+								clearInterval(timer);
+								$("#btn-get-smscode").removeAttr('disabled');
+								jishi.innerText = '获取验证码';
+								wait = 60;					
+							}
+						},1000);
+						$("#sms-captcha").attr('disabled',false).css({"background-color":"#fff"});
+						five=true;      					 	
+				}else{
+
+					$('#img-captcha-wrap').addClass('show');
+   					 	
+				}
+			});
+
+
+		$('#submit-sms-login').click(function(){
+ 			var phone = $("#sms-mobile").val();			
+	        if (one ==true && two ==true && four == true && five==true) {
+	        	 $.post("{:url('index/user/logp')}",{phone:phone},function(data){
+	        	 	if(data.error=1){	      
+ 						$("#submit-sms-login").removeAttr('disabled');
+ 						flag=1;
+	        	 	}else{
+	        	 		console.log(99);
+						flag=1;
+	        	 	}
+	          });
+	        }
+		});
+
+	</script>
+	
+
+
+
+
+    <div id="popwindow_shadow_bg"><iframe frameborder="0" id="popwindow_frame"></iframe></div>
+    <div class="pop_window" id="popWindow"></div>
+    <div id="pageTemplate" style="display: none;">
+        
+    </div>
+    <input id="userId" value="" type="hidden" />
+    <input id="ahs_um" value="" type="hidden" />
+    <input id="userIsLogin" value="0" type="hidden" />
+    
+    
+    
+    <!-- <script src="__HJS_PATH__ahs.min.js" type="text/javascript"></script>
+    <script src="__HJS_PATH__common.min.js" type="text/javascript"></script> -->
+    <script type="text/javascript">
+        
+
+
+       
+    </script>
+
+</body>
+</html>
