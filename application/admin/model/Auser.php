@@ -15,7 +15,7 @@ class Auser extends Model
 		return Db::name('auser')->where("username = '$name'")->find();
 	}
 	public function checkpwdModel($userinfo){
-		if(strcasecmp($userinfo['password'],($_POST['password'])) ==0){
+		if(strcasecmp($userinfo['userpassword'],($_POST['userpassword'])) ==0){
 			return true;
 		}else{
 			return false;

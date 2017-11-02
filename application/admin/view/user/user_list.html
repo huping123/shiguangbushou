@@ -40,13 +40,13 @@
       </ul>
     </div>
      <!---->
-     <div class="border clearfix">
+  <!--    <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
        <span class="r_f">共：<b>2345</b>条</span>
-     </div>
+     </div> -->
      <!---->
      <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
@@ -56,14 +56,13 @@
         <th width="80">ID</th>
         <th width="100">用户名</th>
                 <th width="100">头像</th>
-        <th width="80">性别</th>
-        <th width="170">手机</th>
-        <th width="250">邮箱</th>
+    
+       
         <th width="150">地址</th>
         <th width="220">加入时间</th>
-                <th width="100">等级</th>
-                <th width="70">积分</th>
-        <th width="150">用户ip</th>               <th width="100">操作</th>
+          
+        <th width="150">用户ip</th>              
+        <th width="100">操作</th>
       </tr>
     </thead>
   <tbody>
@@ -71,16 +70,14 @@
          <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
           <td>{$vo.uid}</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10301','500','400')">{$vo.username}</u></td>
+          <td><u style="cursor:pointer" class="text-primary">{$vo.mobile}</u></td>
           <td><img src="" width="50" height="30"/></td>
-          <td>{$vo.sex}</td>
-          <td>{$vo.phone}</td>
-          <td>{$vo.email}</td>
-          <td class="text-l">{$vo.place}</td>
+         
+          <td class="text-l">{$vo.address}</td>
+       
           <td>{$vo.create_time|date='Y-m-d',###}</td>
-          <td>{$vo.vip}</td>
-          <td>{$vo.grade}</td>
-          <td class="td-status"><span>{$vo.regip|long2ip}</span></td>
+           
+          <td class="td-status"><span>{$vo.regip|long2ip}</span></td> 
           <td class="td-manage">
           {if $vo.isdel == 0}
           <a onClick="member_stop(this,'10001')"  href="{:url('admin/user/jinzhi')}?uid={$vo.uid}" title="停用"  class="btn btn-xs btn-warning"><i class="icon-ok bigger-120"></i></a> 

@@ -1,11 +1,12 @@
 <?php
 namespace app\admin\Controller;
+use app\admin\controller\Auser;
 use app\admin\model\User as UserModel;
 use think\Controller;
 use think\Db;
 use think\Request;
 use think\Paginate;
-class User extends Controller
+class User extends Auser
 {
 	public function user_list()
 	{   

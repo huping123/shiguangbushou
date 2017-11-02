@@ -24,6 +24,7 @@
 </head>
 <body>
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 分类管理 <span class="c-gray en">&gt;</span> 分类管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<span style="color:red;">点击分类样式，可立即删除</span>
 <table class="table">
 	<tr>
 		<td width="200" class="va-t"><ul id="treeDemo" class="ztree"></ul></td>
@@ -39,6 +40,32 @@
 <!--请在下方写此页面业务相关的脚本-->
 <script type="text/javascript" src="__AWCSS_PATH__lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script> 
 <script type="text/javascript">
+// var zNodes =[
+// 	{ id:1, pId:0, name:"一级分类", open:true},
+// 	{ id:11, pId:1, name:"二级分类"},
+// 	{ id:111, pId:11, name:"三级分类"},
+// 	{ id:112, pId:11, name:"三级分类"},
+// 	{ id:113, pId:11, name:"三级分类"},
+// 	{ id:114, pId:11, name:"三级分类"},
+// 	{ id:115, pId:11, name:"三级分类"},
+// 	{ id:12, pId:1, name:"二级分类 1-2"},
+// 	{ id:121, pId:12, name:"三级分类 1-2-1"},
+// 	{ id:122, pId:12, name:"三级分类 1-2-2"},
+// ];
+var zNodes;
+    $.ajax({
+    	url:"{:url('product_category_ajax')}",
+    	type:'get',
+
+    	dataType:'json',
+    	async:false,
+        success:function(data){
+        	zNodes=data;
+        	console.log(data);
+        }
+
+    });
+
 var setting = {
 	view: {
 		dblClickExpand: false,
@@ -48,37 +75,34 @@ var setting = {
 	data: {
 		simpleData: {
 			enable:true,
-			idKey: "id",
-			pIdKey: "pId",
+			idKey: "cid",
+			pIdKey: "cpid",
 			rootPId: ""
 		}
 	},
 	callback: {
 		beforeClick: function(treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("tree");
-			if (treeNode.isParent) {
-				zTree.expandNode(treeNode);
-				return false;
-			} else {
-				demoIframe.attr("src",treeNode.file + ".html");
-				return true;
-			}
+		
+			$.ajax({
+			    	url:"product_category_del",
+			    	type:'get',
+                    data:{cid:treeNode.cid},
+			    	dataType:'json',
+			    	async:false,
+			        success:function(data){
+			        	if (data==1) {
+			        		alert("删除成功");parent.location.href="{:url('admin/goods/product_category')}";
+			        	}else{
+			        		alert(data);parent.location.href="{:url('admin/goods/product_category')}";
+			        	}
+			        }
+
+    		});
 		}
 	}
 };
 
-var zNodes =[
-	{ id:1, pId:0, name:"一级分类", open:true},
-	{ id:11, pId:1, name:"二级分类"},
-	{ id:111, pId:11, name:"三级分类"},
-	{ id:112, pId:11, name:"三级分类"},
-	{ id:113, pId:11, name:"三级分类"},
-	{ id:114, pId:11, name:"三级分类"},
-	{ id:115, pId:11, name:"三级分类"},
-	{ id:12, pId:1, name:"二级分类 1-2"},
-	{ id:121, pId:12, name:"三级分类 1-2-1"},
-	{ id:122, pId:12, name:"三级分类 1-2-2"},
-];
+
 		
 var code;
 		

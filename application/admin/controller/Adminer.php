@@ -91,16 +91,38 @@ class Adminer extends Auser
 		$this->assign('list', $list);
 		return $this->fetch();
 	}
-	//给角色添加角色
-	public function rolePer()
+	//给角色添加权限和删除权限
+	// public function rolePer()
+	// {
+	// 	$info = $this->request->param();
+	// 	$pid = $info['choose'];
+	// 	$list = $this->role->get($info['rid']);
+	// 	$list->per()->save($pid);
+	// 	$this->redirect('admin_Reflection');
+	// }
+    
+    public function rolePer()
 	{
 		$info = $this->request->param();
-		$pid = $info['choose'];
-		$list = $this->role->get($info['rid']);
-		$list->per()->save($pid);
+		if (array_key_exists('addPer',$info)) {
+			if (array_key_exists('choose',$info)) {
+				$pid = $info['choose'];
+				$list = $this->role->get($info['rid']);
+				//var_dump($list);
+				$list->per()->save($pid);
+			}			
+		}
+		if (array_key_exists('deletePer',$info)) {
+			if (array_key_exists('change',$info)) {
+				$pid = $info['change'];
+				$list = $this->role->get($info['rid']);
+				//dump($list);die;
+				$list->per()->detach($pid);
+			}			
+		}		
 		$this->redirect('admin_Reflection');
 	}
-	//管理员列表
+
 	public function administrator()
 	{   
 
@@ -153,9 +175,12 @@ class Adminer extends Auser
 	//添加权限
 	public function addper()
 	{   
-        
+        	foreach ($re as $key => $val) {
+					$per = $this->pid;
+					$arr[]=$per;
+				}		
 		return $this->fetch();
-	}
+	} 
 	//处理添加的权限
 	public function doper()
 	{
@@ -170,7 +195,8 @@ class Adminer extends Auser
 			$this->per->title = $info['pername'];
 			$this->per->save();
 			$this->redirect($_SERVER["HTTP_REFERER"]);
-		}		
+		}
+		
 	}
 	//删除权限
 

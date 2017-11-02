@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+s<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>后台管理模板</title>
@@ -12,24 +12,28 @@
 <body>
     <!--Header-part-->
     <div id="header">
-      <h1><a href="dashboard.html">二手数码交易平台</a></h1>
+      <h1><a href="dashboard.html">灰太狼数码</a></h1>
     </div>
     <!--close-Header-part--> 
 
     <!--top-Header-menu-->
     <div id="user-nav" class="navbar navbar-inverse">
         <ul class="nav">
-            <li  class="dropdown" id="profile-messages" >
+             <li  class="dropdown" id="profile-messages" >
                 <a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle">
                     <i class="icon icon-user"></i>&nbsp;
-                    <span class="text">欢迎你，admin</span>&nbsp;
+                    <span class="text">欢迎你，{$username}</span>&nbsp;
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#"><i class="icon-user"></i> 个人资料</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#"><i class="icon-check"></i> 我的任务</a></li>
-                    <li class="divider"></li>
+                    {foreach $role as $r}
+                    <li><a href="#"><i class="icon-user"></i>{$r.name}</a></li>
+                    {/foreach}
+                    <li class="divider"></li> 
+                     {foreach $per as $p}
+                    <li><a href="#"><i class="icon-check"></i>{$p.title} </a></li>
+                     {/foreach}
+                     <li class="divider"></li>
                     <li><a href="login.html"><i class="icon-key"></i> 退出系统</a></li>
                 </ul>
             </li>
@@ -51,7 +55,7 @@
                 </ul>
             </li>
             <li class=""><a title="" href="#"><i class="icon icon-cog"></i> <span class="text">&nbsp;设置</span></a></li>
-            <li class=""><a title="" href="login.html"><i class="icon icon-share-alt"></i> <span class="text">&nbsp;退出系统</span></a></li>
+            <li class=""><a title="" href="{:url('admin/auser/loginout')}"><i class="icon icon-share-alt"></i> <span class="text">&nbsp;退出</span></a></li>
         </ul>
     </div>
     <!--close-top-Header-menu-->
@@ -69,6 +73,7 @@
             <li class="submenu active">
                 <a class="menu_a" link=""><i class="icon icon-home"></i> <span>控制面板</span></a> 
             </li>
+ {in name="1"  value="$arr"}           
              <li class="submenu"> 
                 <a href="#">
                     <i class="icon icon-table"></i> 
@@ -76,11 +81,12 @@
                     <span class="label label-important">3</span>
                 </a>
                 <ul>
-                    <li><a class="menu_a" link="{:url('admin/order/order_handling')}"><i class="icon icon-caret-right"></i>订单处理</a></li>
-                    <li><a class="menu_a" link="{:url('admin/order/amounts')}"><i class="icon icon-caret-right"></i>交易金额</a></li>
+                    <li><a class="menu_a" link="{:url('admin/goods/product_list')}"><i class="icon icon-caret-right"></i>订单处理</a></li>
                     <li><a class="menu_a" link="{:url('admin/goods/product_category')}"><i class="icon icon-caret-right"></i>分类管理</a></li>
                 </ul>
             </li>
+   {/in}
+   {in name="2" value="$arr"}         
             <li class="submenu"> 
                 <a href="#">
                     <i class="icon icon-table"></i> 
@@ -93,20 +99,21 @@
                     <li><a class="menu_a" link="form-wizard.html"><i class="icon icon-caret-right"></i>密码修改样式表单</a></li>
                 </ul>
             </li>
+    {/in}
+    {in name="3" value="$arr"}            
             <li class="submenu">
 				<a href="#">
                     <i class="icon icon-th"></i> 
                     <span>会员管理</span> 
-                    <span class="label label-important">6</span>
+                    <span class="label label-important">1</span>
                 </a>
 				<ul>
                     <li><a class="menu_a" link="{:url('admin/user/user_list')}"><i class="icon icon-caret-right"></i>会员列表</a></li>
-                    <li><a class="menu_a" link="grid.html"><i class="icon icon-caret-right"></i>页面布局</a></li>
-                    <li><a class="menu_a" link="tables.html"><i class="icon icon-caret-right"></i>表格</a></li>
-                    <li><a class="menu_a" link="widgets.html"><i class="icon icon-caret-right"></i>插件</a></li>
-				
+                   
                 </ul>
             </li>
+     {/in}
+     {in name="4" value="$arr"}    
             <li class="submenu"> 
                 <a href="#">
                     <i class="icon icon-stop"></i> 
@@ -120,19 +127,9 @@
                     <li><a class="menu_a" link="chat.html"><i class="icon icon-caret-right"></i>聊天</a></li>
                 </ul>
             </li>
-            <li class="submenu"> 
-                <a href="#">
-                    <i class="icon icon-info-sign"></i> 
-                    <span>错误页面</span> 
-                    <span class="label label-important">4</span>
-                </a>
-                <ul>
-                    <li><a class="menu_a" link="error403.html"><i class="icon icon-caret-right"></i>Error 403</a></li>
-                    <li><a class="menu_a" link="error404.html"><i class="icon icon-caret-right"></i>Error 404</a></li>
-                    <li><a class="menu_a" link="error405.html"><i class="icon icon-caret-right"></i>Error 405</a></li>
-                    <li><a class="menu_a" link="error500.html"><i class="icon icon-caret-right"></i>Error 500</a></li>
-                </ul>
-            </li>
+       {/in}     
+           
+    {in name="5" value="$arr"}        
             <li class="submenu">
                 <a href="#">
                     <i class="icon icon-th"></i> 
@@ -146,6 +143,7 @@
                    
                 </ul>
             </li>
+      {/in}      
         </ul>
     </div>
     <!--sidebar-menu-->

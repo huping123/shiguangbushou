@@ -29,7 +29,7 @@
     <form action="{:url('rolePer')}" method="post" id="form-admin-add">
 		<div class="form-group" style="margin-left:300px;">
 			<label class="form-label"><span class="c-red">*</span>角色名称：</label>
-			<div class="formControls">
+			<div class="formControls" style="margin-top:6px;">
 			{$name}	
 			<input type="hidden" name="rid" value="{$rid}"/>
 				
@@ -51,10 +51,36 @@
 			<div class="col-4"> <span class="Validform_checktip"></span></div>
 		</div>
 	
-        <input  style="margin:50px auto"class="btn btn-primary radius" type="submit"  id="Add_Administrator" value="&nbsp;&nbsp;添加&nbsp;&nbsp;">
+        <input  style="margin:50px auto"class="btn btn-primary radius" type="submit"  id="Add_Administrator" name="addPer" value="&nbsp;&nbsp;添加&nbsp;&nbsp;">
+        <div class="form-group">
+			<label class="form-label" style="margin-left:-80px;"><span class="c-red">*</span>角色名称：</label>
+			<div class="formControls" style="margin-top:6px;">
+			{$name}	
+			<input type="hidden" name="rid" value="{$rid}"/>
+				
+			</div>
+			<div class="col-4"> <span class="Validform_checktip"></span></div>
+		</div>
+		<div class="form-group">
+			<label class="form-label" style="margin-left:-80px;"><span class="c-red">*</span>已拥有权限:</label>
+			<div class="formControls">
+			  <select name="change" style="width:250px;height:40px;">
+			{foreach $list as $k => $val}
+			     {in name="$val.pid" value="$arr"}
+				<option value="{$val.pid}">{$val.title}</option>
+			     {/in}
+				
+			{/foreach}
+		
+			</div >
+			<div class="col-4"> <span class="Validform_checktip"></span></div>
+		</div>
+	
+        <input  style="margin:50px auto"class="btn btn-primary radius" type="submit"  id="Add_Administrator" name="deletePer" value="&nbsp;&nbsp;删除&nbsp;&nbsp;">
           
 	</form>
    </div>
+  
 </body>
 </html>
 <script src="__AJS_PATH__jQuery-1.11.3.min.js"></script>

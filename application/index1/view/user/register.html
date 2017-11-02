@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>index</title>
+<link rel="stylesheet" type="text/css" href="__HCSS_PATH__/index.css">
+<link rel="stylesheet" type="text/css" href="__HCSS_PATH__/lunbo.css">
+<link rel="stylesheet" type="text/css" href="__HCSS_PATH__/style1.css">
+<script src="__HJS_PATH__/jquery.min.js"></script>
+
+
+<script src="__HJS_PATH__/public.js"></script>
+<script src="__BJS_PATH__/bootstrap.js"></script>
+
+        <link rel="stylesheet" href="__HCSS_PATH__amazeui.min.css" />
+        <link href="__HCSS_PATH__dlstyle.css" rel="stylesheet" type="text/css">
+
+        <script src="__HJS_PATH__amazeui.min.js"></script>
+        <script src="__HJS_PATH__bootstrap.min.js"></script> 
+</head>
+<body>
+
+
+  <div class="m-reg-modal" style="display:;">
+ <!--  <div class="m-login-modal"> -->
+        <i class="bg"></i>
+        <div class="wrap" style="height: auto;padding-bottom:0;">
+            <div class="title">注册</div>
+            <div class="m-form c" id="loginform">
+                <form action="{:url('user/doregister')}" method="post", onsubmit="return checkregister()">
+                <div class="formitm">
+                    <div class="ipt">                      
+                        <input type="text" class="u-ipt" id="uname1" name="uname" placeholder="用户名" onblur="checkUser()">
+                        <label for="uname1"><i class="am-icon-mobile-phone am-icon-md"></i></label>
+                        <span class="uname1" display:none;></span>
+
+                    </div>
+                </div>
+                <div class="formitm">
+
+                    <div class="ipt">
+                        <div id="tphone"><txt></txt></div>
+                        <input type="text" class="u-ipt" id="phone1" name="phone" placeholder="手机号" onblur="checkPhone()">
+                        <label for="phone1"><i class="am-icon-mobile-phone am-icon-md"></i></label>
+
+
+                    </div>
+                </div>
+                <div class="formitm phonecode">
+                    <div class="ipt f-ibs">
+                        <input type="text" class="u-ipt" id="phonecode" placeholder="手机验证码">
+                         <button class="u-btn n-middle confirm"  id="regphone" type="button" >获取手机验证码</button>
+                           <!-- <span class="error_info4" style="display:none;"></span> -->
+                        <p class="tip u-btn n-middle">60</p>
+                    </div>
+                </div>
+                <div class="formitm button">
+                    <div class="ipt">
+                    <!--     <button class="u-btn n-middle confirm" type="button" id="sub">登录</button> -->
+                    <input type="submit" name="" id ="sub" value="注册" class="am-btn am-btn-primary am-btn-sm am-fl">
+                    </div>
+                </div>
+                <div class="weixin">
+                         <a id="WxLogin" data-url="" style="cursor:pointer;">
+                        <i class="i-icon"></i>
+                        <span>微信登录</span>
+                    </a>
+                </div> 
+                </form>
+            </div>
+            <i class="i-icon close " data-dismiss="modal"></i>
+        </div>
+<!-- </div> -->
+</div>
+<script type="text/javascript">
+    $('.close').click(function(){
+        $('.m-reg-modal').hide();
+          });
+    $('.reg').click(function(){
+        $('.m-reg-modal').show();
+       // $('.m-login-modal').hide();
+    });
+    var checkname = 'false';
+    var pwd = '';
+    var repwd = '';
+    var checkVer = 'false';
+    // var checkAll = [0, 0];
+
+          $("#uname1").blur(function(){
+                 if ($('#uname1').val() == '') {
+                    $("#uname1").css('border','1px solid red');
+                   $('.uname1').text('用户名不得为空').show();
+                   checkname = 'false';
+                  return false;
+                }
+            });
+     function checkUser()
+         {
+         var uname = $('#uname1').val();
+            $.post("{:url('user/check')}",{uname:uname},function(data){
+                if(data['errcode']==1){
+                    checkname = 'false';
+                        $("#uname1").css('border','1px solid red');
+                        $('.uname1').text(data.info).show();
+                   return false;
+                } else if(uname !==''){
+                    checkname = 'true';
+                        $("#uname1").css('border','1px solid blue');
+                        $('.uname1').hide(); 
+                  return true;
+                }
+             },'json');
+
+      }
+     function checkPhone()
+         {
+        var Phone = $("#phone1").val();
+        if(!(/^1[3|4|5|7|8][0-9]{9}$/.test(Phone)))
+        {
+            $("#phone1").css('border','1px solid red');
+            return false;
+        } else{
+            $("#phone1").css('border','1px solid green');
+            return true;
+      }
+    }
+
+    var pcode = 0;
+    var jishi = document.getElementById('jishi');
+    var wait = 60;
+    var timer = null;
+    var num = 0;
+    jishi.onclick = function(){
+        num++;
+        timer = setInterval(function(){
+            $("#jishi").attr({"disabled":"disabled"});
+            jishi.innerText = wait + '后可重发';
+            wait--;
+            if (wait == 0) {
+                clearInterval(timer);
+                $("#jishi").removeAttr('disabled');
+                jishi.innerText = '获取验证码';
+                wait = 60;
+            }
+        },1000);
+        $.post("{:url('user/phoneVer')}",{phone:$('#phone1 input[name=phone]').val()},function(data){
+           pcode = data.notice;
+    },'json');
+}
+    $('input[name=phoneCode]').blur(function(){
+            //console.log(pcode);
+           if (pcode == 0){
+                
+           }else {
+                if ($(this).val() != pcode){
+                    $(this).nextAll(".errorPhoneCode").css('color','red').html('手机验证码错误').show();
+                    $(this).nextAll("i").css({'display':'inline-block','backgroundImg':'url(__IMG__/cross.png)'}).show();
+                    flag = 1;
+                } else {
+                    $(this).nextAll(".errorPhoneCode").css('color','green').html('通过').show();
+                    $(this).nextAll("i").css({'display':'inline-block','backgroundImg':'url(__IMG__/cross.png)'}).show();
+                    flag = 0;
+                }
+           }
+            
+        });
+    function checkregister()   
+    {
+        
+        if(checkPhone() && checkname =='true'){
+            console.log(3333);
+            return true;
+        }
+            console.log(7865);
+        
+
+        return false;
+    }
+
+
+</script>

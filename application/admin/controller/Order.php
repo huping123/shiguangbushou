@@ -6,11 +6,11 @@ use think\Db;
 use think\Request;
 class Order extends Auser
 {
-	protected $is_login = ['*'];
+	//protected $is_login = ['*'];
 	//订单处理
 	public function order_handling(Request $request)
 	{   
-	  $list =Db::name('order')->paginate(5);
+	  $list =Db::name('order')->where('isdel',0)->paginate(5);
        $order = new OrderModel;
        $status = empty($request->param('status'))? '%' : $request->param('status');
        $arr = $order->selectdata($status);
@@ -35,6 +35,20 @@ class Order extends Auser
 	       
 	       		return $this->fetch();
 	}
+  //删除订单
+   public function Order_form_del(Request $request)
+  {
+    $id = $request->param('id');
+    $re = Db::name('order')->where('id',$id)->setField('isdel',1);
+    //var_dump($re);
+    $info = Db::name('order')->where('isdel',0)->count();
+    if ($re) {
+      return json(['errcode'=>1,'info'=>$info]);
+    }else{
+      return json(['errcode'=>0,'info'=>$info]);
+    }
+   }
+
 	//交易金额
      public function amounts()
     {   

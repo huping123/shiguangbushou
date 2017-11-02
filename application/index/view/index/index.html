@@ -24,8 +24,12 @@
 <div class="soubg">
     <div class="sou">
         <span class="fr">
-            
+            {if empty($mobile)}
             <span class="fl"><a href="{:url('index/user/login')}" style="color:#ff4e00">登录</a>&nbsp;|</span>
+            {else}
+            <span class="fl"><a href="{:url('index/user/login')}" style="color:#ff4e00">{$mobile}</a>&nbsp;|</span>
+            {/if}
+            <span class="fl"><a href="{:url('index/index/index')}" style="color:#ff4e00">首页</a>&nbsp;|</span>
             <span class="fl"><a href="/index/user/out">退出</a>&nbsp;|<a href="/index/myself/Member_Order">我的订单</a>&nbsp;|</span>
             <span class="ss">
                  <div class="ss_list">
@@ -75,17 +79,19 @@
         </form>                      
     </div>
     <div class="i_car">
-        <div class="car_t">购物车 [ <span></span> ]</div>
-
+        <div class="car_t">购物车 [<span></span>]</div>
+    {if empty($mobile)}
         <div class="car_bg">
             <!--Begin 购物车未登录 Begin-->
             <div class="un_login">还未登录！<a href="/index/user/login" style="color:#ff4e00;">马上登录</a> 查看购物车！</div>
         </div>
+         {/if}
+
          <div class="car_bg">
             <!--Begin 购物车已登录 Begin-->
-            <div class="un_login" >用户<a href="/index/pay/pay" style="color:#ff4e00;"></a> 查看购物车！</div>
+            <div class="un_login" >用户<a href="/index/pay/pay" style="color:#ff4e00;">{$mobile}</a> 查看购物车！</div>
         </div>
-    </div>
+          </div>
 </div>
 <!--End Header End--> 
 <!--Begin Menu Begin-->
@@ -187,14 +193,14 @@
                     <div id="block">
                         <div id="botton-scroll">
                             <ul class="featureUL">
-                                {if $foreach}
+                                {if $apple}
                                      {foreach $apple as $vo}
                                 <li class="featureBox">
                                      
                                     <div class="box">
-                                        <div class="h_icon"><img src="__HIMG_PATH__/a.png" width="50" height="50" /></div>
+                                        <div class="h_icon"><img src="__HIMG_PATH__a.png" width="50" height="50" /></div>
                                         <div class="imgbg">
-                                            <a href="/index/good/product?pid={$vo.pid}"><img src="__HIMG_PATH__/{$vo.url}" width="160" height="136" /></a>
+                                            <a href="/index/good/product?pid={$vo.pid}"><img src="__HIMG_PATH__{$vo.url}" width="160" height="136" /></a>
                                         </div>                                        
                                         <div class="name">
                                             <a href="/index/good/product?pid={$vo.pid}">
@@ -209,6 +215,7 @@
                                    
                                 </li>
                                    {/foreach}
+                                   {/if}
                             </ul>
                         </div>
                     </div>

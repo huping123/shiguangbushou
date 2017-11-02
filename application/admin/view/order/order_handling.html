@@ -27,11 +27,11 @@
 <body>
 <div class="clearfix">
  <div class="handling_style" id="order_hand">
-      <div id="scrollsidebar" class="left_Treeview">
-        <div class="show_btn" id="rightArrow"><span></span></div>
-        <div class="widget-box side_content" >
-         <div class="side_title"><a title="隐藏" class="close_btn"><span></span></a></div>
-         <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">订单操作</h4></div>
+    <!--   <div id="scrollsidebar" class="left_Treeview">
+        <div class="show_btn" id="rightArrow"><span></span></div> -->
+       <!--  <div class="widget-box side_content" >
+         <div class="side_title"><a title="隐藏" class="close_btn"><span></span></a></div> -->
+        <!--  <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">订单操作</h4></div>
          <div class="widget-body">
           <ul class="b_P_Sort_list">
              <li><i class="orange  fa fa-reorder"></i><a href="#">全部订单</a></li>
@@ -41,10 +41,10 @@
              <li><i class="fa fa-sticky-note pink "></i> <a href="{:url('admin/order/order_handling')}?status=3">代收货</a></li>
             </ul>
         </div>
-       </div>
-      </div>  
-     </div>
- <div class="order_list_style" id="order_list_style">
+       </div> -->
+     <!--  </div>  
+     </div> -->
+ <!-- <div class="order_list_style" id="order_list_style"> -->
   <div class="search_style">
      
       <ul class="search_content clearfix">
@@ -87,9 +87,9 @@
       <td class="td-status"><span class="label label-success radius">{$vo.status}</span></td>
      
      <td>
-     <a onClick="Delivery_stop(this,'10001')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-     <a title="订单详细"  href=""  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
-     <a title="删除" href="javascript:;"  onclick="return del(1,1,1)" name="delete" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>  
+    <!--  <a onClick="Delivery_stop(this,'10001')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a>  -->
+    <!--  <a title="订单详细"  href=""  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a>  -->
+     <a title="删除" href="javascript:;"  onclick="Order_form_del(this,{$vo.id})" name="delete" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>  
     <!--  <input type="submit" value="删除" style="background:red;">   -->
      </td>
      </tr>
@@ -170,11 +170,21 @@ function del(id,mid,iscid){
 }
 
 /*订单-删除*/
+//var countjian = document.getElementById('count');
 function Order_form_del(obj,id){
   layer.confirm('确认要删除吗？',function(index){
-    $(obj).parents("tr").remove();
-    layer.msg('已删除!',{icon:1,time:1000});
-  });
+   $.post("{:url('admin/order/Order_form_del')}",{id:id},function(data){
+             console.log(data['errcode']);
+      if(data.errcode == 1)
+      {    
+        //countjian.innerText = data.info;
+        $(obj).parents("tr").remove();
+        layer.msg('已删除!',{icon:1,time:1000});
+      }else{
+        layer.msg('删除失败!',{icon:0,time:1000});
+      }
+    },'json')
+ });
 }
 /**发货**/
 function Delivery_stop(obj,id){

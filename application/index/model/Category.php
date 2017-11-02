@@ -26,7 +26,7 @@ public function lis()
 	//遍历商品列表
 	public function bin($id)
 	{
-		return  Db::field('goods.price,goods.name,goods.pid')
+		return  Db::field('goods.price,goods.name,goods.pid,goods.url')
 		->table(['wbby_category'=>'category','wbby_goods'=>'goods'])
 		->where("category.cid = goods.parid")
 		->where("category.cpid = $id")

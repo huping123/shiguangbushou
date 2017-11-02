@@ -4,17 +4,20 @@ use app\admin\model\Auser;
 use think\Controller;
 use think\Validate;
 use think\Db;
-use think\Request; 
+use think\Request;
+use think\Session; 
 class Auser extends Controller
 {   
    
     protected $is_login = [''];
     public function _initialize()
     {
-    	if ($this->checklogin() && $this->is_login[0] == '*') {
+    	if (!$this->checklogin() && $this->is_login[0] == '*') {
     		$this->error('您还未登录，请先登录',url('admin/auser/login'));
-    	}
-    }
+    
+         }
+    }    
+    
     public function checklogin()
     {
     	return session('?admin');
@@ -22,7 +25,7 @@ class Auser extends Controller
 	public function login()
 	{   
 		$code = $this->request->param('code');
-		dump($code); 
+		//dump($code); 
 		return $this->fetch();
 	}
 	public function dologin(Auser $auth)
@@ -51,7 +54,7 @@ class Auser extends Controller
 				'update_time'=>time(),
 			],['username'=>$username]);
 			$info = $user->checkusernameModle();
-			session('admin',$info);
+			session('uid',$info);
 			$this->success('登录成功','admin/index/index');
 		}else{
 			$this->error('密码错误');
@@ -60,6 +63,6 @@ class Auser extends Controller
 	public function loginout()
 	{
 		session(null);
-		$this->error('您还未登录，请先登录',url('admin/auser/login'));
+		$this->error('您还未登录111，请先登录',url('admin/auser/login'));
 	}
 }

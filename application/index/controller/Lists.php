@@ -20,7 +20,9 @@ class Lists extends Controller
         //一级id 板块id
         $cid = $this->request->param('cid');
         $lis = $this->category->bin($cid);
-        dump($lis);
+        $result = $this->category->lis();
+        $this->assign('result',$result);
+        $this->assign('lis',$lis);
 
         return  $this->fetch();
      }

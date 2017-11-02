@@ -36,10 +36,10 @@
 			<label class="form-label col-xs-4 col-sm-2">备注：</label>
 			<div class="formControls col-xs-6 col-sm-6">
 				<span class="select-box">
-					  <select class="select" size="1" name="pid">
+					  <select class="select" size="1" name="cpid">
 					    <option value="0" selected>顶级分类</option>
 					     {foreach $data as $vo}
-					      <option value="{$vo.id}" selected>{$vo.level}级分类&nbsp;{$vo.name}</option>
+					      <option value="{$vo.cid}" selected>{$vo.level}级分类&nbsp;{$vo.name}</option>
 					     {/foreach}
 					  </select>
 				</span>
